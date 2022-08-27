@@ -1,8 +1,22 @@
-// @generated: @expo/next-adapter@2.1.52
-// Learn more: https://docs.expo.io/guides/using-nextjs/
+/** @type {import('next').NextConfig} */
+const { withExpo } = require('@expo/next-adapter')
+const withFonts = require('next-fonts')
+const withImages = require('next-images')
+const withPlugins = require('next-compose-plugins')
+const withTM = require('next-transpile-modules')([
+  'react-native-web',
+  'moti',
+])
 
-const { withExpo } = require('@expo/next-adapter');
+const transform = withPlugins([withTM, withFonts, withImages, withExpo])
 
-module.exports = withExpo({
-  projectRoot: __dirname,
-});
+module.exports = function (name, { defaultConfig }) {
+  return transform(name, {
+    ...defaultConfig,
+    webpack5: true,
+    reactStrictMode: true,
+    experimental: {
+      externalDir: true,
+    },
+  })
+}
