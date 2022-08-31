@@ -1,18 +1,22 @@
 import { ComponentProps, forwardRef } from 'react'
 import { Text as RNText, Platform, Linking } from 'react-native'
 import { styled, StyledProps } from 'nativewind'
+import { motify } from 'moti'
 
 export const Text = styled(RNText)
 
 /**
  * You can use this pattern to create components with default styles
  */
-export const P = styled(RNText, 'text-base text-white-500 my-2')
-
+export const P = styled(RNText, 'text-base')
+P.defaultProps = {
+  accessibilityRole: 'text',
+}
+export const MotiP = motify(P)()
 /**
  * Components can have defaultProps and styles
  */
-export const H1 = styled(RNText, 'text-3xl font-bold my-2')
+export const H1 = styled(RNText, 'text-3xl font-bold')
 H1.defaultProps = {
   accessibilityRole: 'header',
 }
